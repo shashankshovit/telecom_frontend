@@ -1,23 +1,26 @@
-import logo from './logo.svg';
+import { useState } from 'react';
+
 import './App.css';
 
+import Header from './Header.jsx';
+import Body from './Body.jsx';
+import Footer from './Footer.jsx';
+
 function App() {
+  const [user, setUser] = useState({username: "Monika Dwivedi", id: 1, type: "Customer"});
+  const [activeMenu, setActiveMenu] = useState('Home');
+
+  const server = "http://localhost:8000";
+  const menuItems = ["Home", "Register", "Admin Login", "Customer Login"];
+  const onMenuItemClick = (item) => {
+    setActiveMenu(item);
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header user={user} setUser={setUser} activeMenu={activeMenu} menuItems={menuItems} onMenuItemClick={onMenuItemClick}/>
+      <Body activeMenu={activeMenu} server={server}/>
+      <Footer/>
     </div>
   );
 }
